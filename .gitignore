@@ -54,3 +54,16 @@ TestResult.xml
 nunit-*.xml
 *.vsidx
 *.sqlite
+HackerNewsApi/HackerNewsApi.csproj.user
+.vs/HackerNewsApi/v17/DocumentLayout.json
+.vs/hacker-news-api/v17/.wsuo
+/.vs/hacker-news-api/v17
+/.vs/hacker-news-api/v17
+.vs/hacker-news-api/v17/.wsuo
+.vs/hacker-news-api/v17/DocumentLayout.json
+.vs/HackerNewsApi/config/applicationhost.config
+.vs/slnx.sqlite
+/.vs/HackerNewsApi/v17
+.vs/HackerNewsApi/DesignTimeBuild/.dtbcache.v2
+.vs/hacker-news-api/v17/DocumentLayout.json
+.vs/slnx.sqlite
