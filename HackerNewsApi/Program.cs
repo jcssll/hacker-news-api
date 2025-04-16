@@ -1,3 +1,5 @@
+using HackerNewsApi.Respositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -8,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddMemoryCache();
 builder.Services.AddHttpClient();
+builder.Services.AddScoped<IStoryRepository, StoryRepository>();
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
