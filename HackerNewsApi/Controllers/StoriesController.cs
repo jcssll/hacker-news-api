@@ -21,5 +21,12 @@ namespace HackerNewsApi.Controllers
             var stories = await _repository.GetTopStoriesAsync();
             return Ok(stories);
         }
+
+        [HttpGet("newest")]
+        public async Task<IActionResult> GetNewestStories([FromQuery] int page = 1, [FromQuery] int pageSize = 10, [FromQuery] string? search = "")
+        {
+            var stories = await _repository.GetNewestStoriesAsync(page, pageSize, search ?? "");
+            return Ok(stories); 
+        }
     }
 }
