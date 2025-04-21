@@ -13,8 +13,15 @@ builder.Services.AddHttpClient();
 builder.Services.AddScoped<IStoryRepository, StoryRepository>();
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(policy =>
-    policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+    //options.AddDefaultPolicy(policy =>
+    //policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
+    options.AddPolicy("AllowAngularApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")// allow frontend
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
 });
 
 
@@ -60,7 +67,7 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast");
 
 
-app.UseCors();
+app.UseCors("AllowAngularApp"); // apply CORS policy
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
