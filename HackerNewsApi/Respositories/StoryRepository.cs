@@ -53,6 +53,30 @@ namespace HackerNewsApi.Respositories
             return stories; 
         }
 
+        public async Task<IEnumerable<Story>> GetBestStoriesAsync(int page, int pageSize, string searchTerm)
+        {
+            if (!_cache.TryGetValue("hn_best_stories", out List<Story> stories))
+            {
+                var client = _httpClientFactory.CreateClient();
+                var ids = await client.GetFromJsonAsync<List<int>>("https://hacker-news.firebaseio.com/v0/beststories.json");
+
+                var tasks = ids.Take(100).Select(id =>
+                    client.GetFromJsonAsync<Story>($"https://hacker-news.firebaseio.com/v0/item/{id}.json")
+                );
+
+                stories = (await Task.WhenAll(tasks))
+                    .Where(s => s != null && !string.IsNullOrEmpty(s.Url))
+                    .ToList();
+
+                _cache.Set("hn_best_stories", stories, TimeSpan.FromMinutes(10));
+            }
+
+            return stories
+                .Where(s => string.IsNullOrEmpty(searchTerm) || s.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize);
+        }
+
         public async Task<Story?> GetStoryByIdAsync(int id)
         {
             var client = _httpClientFactory.CreateClient();
