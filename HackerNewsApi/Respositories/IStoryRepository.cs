@@ -7,5 +7,7 @@ namespace HackerNewsApi.Respositories
         Task<IEnumerable<Story>> GetTopStoriesAsync();
         Task<Story?> GetStoryByIdAsync(int id);
         Task<IEnumerable<Story>> GetNewestStoriesAsync(int page, int pageSize, string searchTerm);
+        Task<IEnumerable<Story>> GetBestStoriesAsync(int page, int pageSize, string searchTerm);
+
     }
 }
