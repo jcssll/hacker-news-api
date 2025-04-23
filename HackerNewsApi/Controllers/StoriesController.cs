@@ -28,5 +28,19 @@ namespace HackerNewsApi.Controllers
             var stories = await _repository.GetNewestStoriesAsync(page, pageSize, search ?? "");
             return Ok(stories); 
         }
+
+        [HttpGet("best")]
+        public async Task<IActionResult>GetBestStories([FromQuery] int page = 1, [FromQuery] int pageSize = 10, [FromQuery] string? search = "")
+        {
+            var stories = await _repository.GetBestStoriesAsync(page, pageSize, search ?? "");
+            return Ok(stories);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetStory(int id)
+        {
+            var story = await _repository.GetStoryByIdAsync(id);
+            return story != null ? Ok(story) : NotFound();
+        }
     }
 }
