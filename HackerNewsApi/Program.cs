@@ -18,7 +18,10 @@ builder.Services.AddCors(options =>
 
     options.AddPolicy("AllowAngularApp", policy =>
     {
-        policy.WithOrigins("http://localhost:4200")// allow frontend
+        policy.WithOrigins(
+            "http://localhost:4200",// allow frontend - local dev
+            "https://hackernews-hfavfhdqd8f9byge.canadacentral-01.azurewebsites.net" // your deployed Angular frontend
+            )
         .AllowAnyHeader()
         .AllowAnyMethod();
     });
